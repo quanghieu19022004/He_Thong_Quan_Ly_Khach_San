@@ -1,0 +1,15 @@
+@startuml
+autonumber
+skinparam responseMessageBelowArrow true
+participant "BookingService" as p0
+participant "PricingService" as p1
+participant "WeekendStrategy" as p2
+participant "Booking.Builder" as p3
+p0 -> p1 : quote(WEEKEND, room, dates)
+p1 -> p1 : strategies.get(WEEKEND)
+p1 -> p2 : calculate(room, dates)
+p2 -> p2 : iterate nights Fri/Sat +20%
+p2 -> p1 : total price
+p1 -> p0 : total price
+p0 -> p3 : total(price)
+@enduml

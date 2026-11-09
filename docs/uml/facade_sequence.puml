@@ -1,0 +1,19 @@
+@startuml
+autonumber
+skinparam responseMessageBelowArrow true
+participant "Browser" as p0
+participant "BookingController" as p1
+participant "BookingFacade" as p2
+participant "BookingService" as p3
+participant "BookingRepository" as p4
+participant "EventPublisher" as p5
+p0 -> p1 : POST /bookings
+p1 -> p2 : reserve(...)
+p2 -> p3 : reserve(...)
+p3 -> p4 : save(booking)
+p4 -> p3 : Booking
+p3 -> p5 : publish(CREATED)
+p3 -> p2 : Booking
+p2 -> p1 : Booking
+p1 -> p0 : redirect /bookings
+@enduml

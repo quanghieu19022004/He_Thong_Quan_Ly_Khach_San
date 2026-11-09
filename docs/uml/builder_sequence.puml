@@ -1,0 +1,19 @@
+@startuml
+autonumber
+skinparam responseMessageBelowArrow true
+participant "BookingController" as p0
+participant "BookingFacade" as p1
+participant "BookingService" as p2
+participant "PricingService" as p3
+participant "Booking.Builder" as p4
+participant "BookingRepository" as p5
+p0 -> p1 : reserve(...)
+p1 -> p2 : reserve(...)
+p2 -> p3 : quote(...)
+p3 -> p2 : total
+p2 -> p4 : customer().room().dates()
+p2 -> p4 : guests().pricingPlan().total()
+p2 -> p4 : build()
+p4 -> p2 : Booking
+p2 -> p5 : save(booking)
+@enduml

@@ -1,0 +1,26 @@
+<!doctype html><html lang="vi" xmlns:th="http://www.thymeleaf.org"><body>
+<header th:fragment="header" class="top">
+  <div class="utility-bar"><div class="container utility-inner"><span>Chào mừng đến với Lumi Stay</span><div><span class="utility-item">VND · Tiếng Việt</span><a th:href="@{/rooms#ho-tro}">Hỗ trợ</a></div></div></div>
+  <div class="container nav">
+    <a class="logo" th:href="@{/rooms}" aria-label="Lumi Stay - về trang chủ"><span class="brand-symbol">L<span class="brand-dot">.</span></span><span class="brand-word">lumi<span class="brand-contrast">stay</span><small class="brand-caption">A PLACE TO UNWIND</small></span></a>
+    <nav class="primary-links" aria-label="Điều hướng chính">
+      <a class="active-link" th:href="@{/rooms#danh-sach-phong}">Phòng nghỉ</a>
+      <a th:href="@{/rooms#tien-nghi}">Trải nghiệm</a>
+      <a th:if="${isLoggedIn}" th:href="@{/bookings}">Đặt phòng của tôi</a>
+      <a th:if="${isLoggedIn}" th:href="@{/notifications}">Thông báo</a>
+      <a th:if="${isAdmin}" th:href="@{/admin}">Quản trị</a>
+    </nav>
+    <div class="nav-actions">
+      <div class="guest-actions" th:unless="${isLoggedIn}"><a class="nav-register" th:href="@{/register}">Đăng ký</a><a class="btn nav-btn" th:href="@{/login}">Đăng nhập</a></div>
+      <details th:if="${isLoggedIn}" class="account-menu"><summary aria-label="Tài khoản của tôi"><span class="avatar" th:text="${currentInitial}">D</span><span class="user-label" th:text="${currentUsername}">demo</span><span class="chevron">⌄</span></summary>
+        <div class="account-dropdown"><div class="menu-heading">Chào bạn, <strong th:text="${currentUsername}">demo</strong></div><a th:href="@{/profile}">Hồ sơ của tôi</a><a th:href="@{/bookings}">Đặt phòng của tôi</a><a th:href="@{/notifications}">Thông báo</a><a th:if="${isAdmin}" th:href="@{/admin}">Quản trị</a><form th:action="@{/logout}" method="post"><button type="submit" class="logout-button">Đăng xuất</button></form></div>
+      </details>
+    </div>
+  </div>
+</header>
+<footer th:fragment="footer" class="footer" id="ho-tro"><div class="container footer-inner">
+  <div><a class="footer-brand" th:href="@{/rooms}">lumi<span>stay.</span></a><p>Một nơi nghỉ dễ chịu cho những chuyến đi đáng nhớ.</p><p class="footer-note">Website mẫu phục vụ đồ án Design Patterns &amp; SOLID. Thông tin phòng và hình ảnh mang tính minh họa.</p></div>
+  <div class="footer-links"><strong>Khám phá</strong><a th:href="@{/rooms#danh-sach-phong}">Danh sách phòng</a><a th:href="@{/rooms#tien-nghi}">Tiện nghi</a><a th:href="@{/bookings}">Tra cứu đặt phòng</a></div>
+  <div class="footer-links"><strong>Cần hỗ trợ?</strong><span>Nhận phòng từ 14:00</span><span>Trả phòng trước 12:00</span><span>Thanh toán trực tuyến chỉ là mô phỏng.</span></div>
+</div><div class="container footer-bottom">© 2026 Lumi Stay · Đồ án học tập · Không nhận thanh toán thật</div></footer>
+</body></html>

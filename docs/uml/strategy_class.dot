@@ -1,0 +1,16 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", pad="0.27", nodesep="0.44", ranksep="1.0", splines=polyline, fontname="DejaVu Sans"];
+node [shape=record, style="rounded,filled", fillcolor="#ecf4fc", color="#295b83", penwidth=1.25, fontname="DejaVu Sans", fontsize=11, margin="0.12,0.1"];
+edge [color="#526b88", arrowsize=0.7, penwidth=1.15, fontname="DejaVu Sans",fontsize=9];
+c0 [label="{BookingService|+ reserve(...)\l}"];
+c1 [label="{PricingService|- strategies: Map\l+ quote(plan,room,dates): BigDecimal\l}"];
+c2 [label="{PricingStrategy\n«interface»|+ supports(): PricingPlan\l+ calculate(room,dates): BigDecimal\l}"];
+c3 [label="{StandardPricingStrategy|+ calculate(...): BigDecimal\l}"];
+c4 [label="{WeekendPricingStrategy|+ calculate(...): BigDecimal\l}"];
+c5 [label="{Room\n«entity»|- nightlyRate\l}"];
+c0 -> c1 [label="quotes", style=solid, arrowhead=vee];
+c1 -> c2 [label="chooses", style=solid, arrowhead=vee];
+c3 -> c2 [label="implements", style=dashed, arrowhead=empty];
+c4 -> c2 [label="implements", style=dashed, arrowhead=empty];
+c2 -> c5 [label="reads rate", style=solid, arrowhead=vee];
+}

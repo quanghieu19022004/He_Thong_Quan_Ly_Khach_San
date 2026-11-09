@@ -1,0 +1,18 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", pad="0.27", nodesep="0.44", ranksep="1.0", splines=polyline, fontname="DejaVu Sans"];
+node [shape=record, style="rounded,filled", fillcolor="#ecf4fc", color="#295b83", penwidth=1.25, fontname="DejaVu Sans", fontsize=11, margin="0.12,0.1"];
+edge [color="#526b88", arrowsize=0.7, penwidth=1.15, fontname="DejaVu Sans",fontsize=9];
+c0 [label="{BookingController|+ pay(...)\l}"];
+c1 [label="{PaymentService|+ pay(id, method): Payment\l}"];
+c2 [label="{PaymentGatewayRouter|+ get(method): PaymentGateway\l}"];
+c3 [label="{PaymentGateway\n«interface»|+ pay(booking): String\l}"];
+c4 [label="{WalletPaymentAdapter|- legacy: LegacyWalletClient\l+ pay(booking): String\l}"];
+c5 [label="{LegacyWalletClient|+ chargeInMinorUnits(memo, amount)\l}"];
+c6 [label="{CashPaymentGateway|+ pay(booking): String\l}"];
+c0 -> c1 [label="uses", style=solid, arrowhead=vee];
+c1 -> c2 [label="get gateway", style=solid, arrowhead=vee];
+c2 -> c3 [label="returns", style=solid, arrowhead=vee];
+c4 -> c3 [label="implements", style=dashed, arrowhead=empty];
+c6 -> c3 [label="implements", style=dashed, arrowhead=empty];
+c4 -> c5 [label="adapts", style=solid, arrowhead=vee];
+}

@@ -1,0 +1,18 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", pad="0.27", nodesep="0.44", ranksep="1.0", splines=polyline, fontname="DejaVu Sans"];
+node [shape=record, style="rounded,filled", fillcolor="#ecf4fc", color="#295b83", penwidth=1.25, fontname="DejaVu Sans", fontsize=11, margin="0.12,0.1"];
+edge [color="#526b88", arrowsize=0.7, penwidth=1.15, fontname="DejaVu Sans",fontsize=9];
+c0 [label="{BookingService|+ reserve()\l+ cancel()\l}"];
+c1 [label="{BookingEventPublisher|- listeners: List\l+ publish(event)\l}"];
+c2 [label="{BookingEventListener\n«interface»|+ onBookingChanged(event)\l}"];
+c3 [label="{DatabaseNotificationObserver|+ onBookingChanged(event)\l}"];
+c4 [label="{LogBookingObserver|+ onBookingChanged(event)\l}"];
+c5 [label="{NotificationRepository|+ save(notification)\l}"];
+c6 [label="{BookingEvent\n«record»|+ booking, action\l}"];
+c0 -> c1 [label="publishes", style=solid, arrowhead=vee];
+c1 -> c2 [label="notifies", style=solid, arrowhead=vee];
+c3 -> c2 [label="implements", style=dashed, arrowhead=empty];
+c4 -> c2 [label="implements", style=dashed, arrowhead=empty];
+c3 -> c5 [label="persists", style=solid, arrowhead=vee];
+c1 -> c6 [label="carries", style=solid, arrowhead=vee];
+}

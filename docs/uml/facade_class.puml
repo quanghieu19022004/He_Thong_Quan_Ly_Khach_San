@@ -1,0 +1,29 @@
+@startuml
+left to right direction
+skinparam classAttributeIconSize 0
+class "BookingController" as c0 {
+  + reserve()
+  + pay()
+  + cancel()
+}
+class "BookingFacade" as c1 {
+  + reserve(...)
+  + pay(...)
+  + cancel(...)
+}
+class "BookingService" as c2 {
+  + reserve(...)
+  + cancel(...)
+}
+class "PaymentService" as c3 {
+  + pay(...)
+}
+class "BookingEventPublisher" as c4 {
+  + publish(event)
+}
+c0 --> c1 : delegates
+c1 --> c2 : reserve/cancel
+c1 --> c3 : pay
+c2 --> c4 : events
+c3 --> c4 : events
+@enduml

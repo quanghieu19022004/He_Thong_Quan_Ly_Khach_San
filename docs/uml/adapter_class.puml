@@ -1,0 +1,32 @@
+@startuml
+left to right direction
+skinparam classAttributeIconSize 0
+class "BookingController" as c0 {
+  + pay(...)
+}
+class "PaymentService" as c1 {
+  + pay(id, method): Payment
+}
+class "PaymentGatewayRouter" as c2 {
+  + get(method): PaymentGateway
+}
+interface "PaymentGateway «interface»" as c3 {
+  + pay(booking): String
+}
+class "WalletPaymentAdapter" as c4 {
+  - legacy: LegacyWalletClient
+  + pay(booking): String
+}
+class "LegacyWalletClient" as c5 {
+  + chargeInMinorUnits(memo, amount)
+}
+class "CashPaymentGateway" as c6 {
+  + pay(booking): String
+}
+c0 --> c1 : uses
+c1 --> c2 : get gateway
+c2 --> c3 : returns
+c4 ..|> c3 : implements
+c6 ..|> c3 : implements
+c4 --> c5 : adapts
+@enduml

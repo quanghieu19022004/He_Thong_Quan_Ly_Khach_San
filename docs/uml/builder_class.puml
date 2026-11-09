@@ -1,0 +1,33 @@
+@startuml
+left to right direction
+skinparam classAttributeIconSize 0
+class "BookingController" as c0 {
+  + reserve(...)
+}
+class "BookingService" as c1 {
+  + reserve(...): Booking
+}
+class "Booking.Builder" as c2 {
+  + customer()
+  + room()
+  + dates()
+  + guests()
+  + total()
+  + build(): Booking
+}
+class "Booking «entity»" as c3 {
+  - room, customer, checkIn, checkOut
+  - guests, pricingPlan, total
+}
+class "Room «entity»" as c4 {
+  - number, rate
+}
+class "AppUser «entity»" as c5 {
+  - username
+}
+c0 --> c1 : uses
+c1 --> c2 : builds
+c2 --> c3 : creates
+c3 --> c4 : has
+c3 --> c5 : belongs to
+@enduml

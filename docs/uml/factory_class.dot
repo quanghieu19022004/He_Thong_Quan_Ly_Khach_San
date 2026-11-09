@@ -1,0 +1,20 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", pad="0.27", nodesep="0.44", ranksep="1.0", splines=polyline, fontname="DejaVu Sans"];
+node [shape=record, style="rounded,filled", fillcolor="#ecf4fc", color="#295b83", penwidth=1.25, fontname="DejaVu Sans", fontsize=11, margin="0.12,0.1"];
+edge [color="#526b88", arrowsize=0.7, penwidth=1.15, fontname="DejaVu Sans",fontsize=9];
+c0 [label="{AdminController|+ createRoom(...)\l}"];
+c1 [label="{RoomService|+ add(number,type,rate,capacity): Room\l}"];
+c2 [label="{RoomFactoryRegistry|+ get(type): RoomFactory\l}"];
+c3 [label="{RoomFactory\n«interface»|+ create(number,rate,capacity): Room\l}"];
+c4 [label="{StandardRoomFactory|+ create(...): Room\l}"];
+c5 [label="{DeluxeRoomFactory|+ create(...): Room\l}"];
+c6 [label="{SuiteRoomFactory|+ create(...): Room\l}"];
+c7 [label="{Room\n«entity»|- number, type, nightlyRate, capacity\l}"];
+c0 -> c1 [label="uses", style=solid, arrowhead=vee];
+c1 -> c2 [label="calls", style=solid, arrowhead=vee];
+c2 -> c3 [label="returns", style=solid, arrowhead=vee];
+c4 -> c3 [label="implements", style=dashed, arrowhead=empty];
+c5 -> c3 [label="implements", style=dashed, arrowhead=empty];
+c6 -> c3 [label="implements", style=dashed, arrowhead=empty];
+c3 -> c7 [label="creates", style=solid, arrowhead=vee];
+}

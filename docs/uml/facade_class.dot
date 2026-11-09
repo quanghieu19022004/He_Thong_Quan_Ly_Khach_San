@@ -1,0 +1,15 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", pad="0.27", nodesep="0.44", ranksep="1.0", splines=polyline, fontname="DejaVu Sans"];
+node [shape=record, style="rounded,filled", fillcolor="#ecf4fc", color="#295b83", penwidth=1.25, fontname="DejaVu Sans", fontsize=11, margin="0.12,0.1"];
+edge [color="#526b88", arrowsize=0.7, penwidth=1.15, fontname="DejaVu Sans",fontsize=9];
+c0 [label="{BookingController|+ reserve()\l+ pay()\l+ cancel()\l}"];
+c1 [label="{BookingFacade|+ reserve(...)\l+ pay(...)\l+ cancel(...)\l}"];
+c2 [label="{BookingService|+ reserve(...)\l+ cancel(...)\l}"];
+c3 [label="{PaymentService|+ pay(...)\l}"];
+c4 [label="{BookingEventPublisher|+ publish(event)\l}"];
+c0 -> c1 [label="delegates", style=solid, arrowhead=vee];
+c1 -> c2 [label="reserve/cancel", style=solid, arrowhead=vee];
+c1 -> c3 [label="pay", style=solid, arrowhead=vee];
+c2 -> c4 [label="events", style=solid, arrowhead=vee];
+c3 -> c4 [label="events", style=solid, arrowhead=vee];
+}

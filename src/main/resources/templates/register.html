@@ -1,0 +1,10 @@
+<!doctype html><html lang="vi" xmlns:th="http://www.thymeleaf.org"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#123455">
+<title>Đăng ký | Lumi Stay</title>
+<link rel="stylesheet" th:href="@{/css/style.css}"></head><body>
+<div th:replace="~{fragments/layout :: header}"></div>
+<main class="container page-content">
+<div th:if="${notice}" class="alert ok" role="status" th:text="${notice}"></div>
+<div th:if="${error}" class="alert bad" role="alert" th:text="${error}"></div>
+<section class="auth-shell"><div class="auth-info"><span class="eyebrow light">CHÀO MỪNG THÀNH VIÊN MỚI</span><h1>Kỳ nghỉ của bạn bắt đầu ở đây.</h1><p>Tạo tài khoản để đặt phòng, theo dõi chuyến đi và quản lý lịch lưu trú thật thuận tiện.</p><div class="auth-mark">✦</div></div><div class="auth-form"><div class="eyebrow">THÀNH VIÊN MỚI</div><h2>Đăng ký tài khoản</h2><form th:action="@{/register}" method="post" class="stack"><label>Tên đăng nhập<input type="text" name="username" pattern="[A-Za-z0-9_]{3,30}" minlength="3" maxlength="30" placeholder="Ví dụ: nguyenvana" required></label><label>Email<input type="email" name="email" placeholder="ban@example.com" required></label><label>Mật khẩu (tối thiểu 8 ký tự)<input type="password" name="password" minlength="8" required></label><button class="btn full btn-lg" type="submit">Tạo tài khoản →</button></form><p>Đã có tài khoản? <a th:href="@{/login}"><strong>Đăng nhập</strong></a></p></div></section></main><div th:replace="~{fragments/layout :: footer}"></div></body></html>

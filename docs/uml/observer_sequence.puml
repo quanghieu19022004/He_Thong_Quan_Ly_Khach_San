@@ -1,0 +1,16 @@
+@startuml
+autonumber
+skinparam responseMessageBelowArrow true
+participant "BookingService" as p0
+participant "EventPublisher" as p1
+participant "DbNotificationObserver" as p2
+participant "NotificationRepository" as p3
+participant "LogBookingObserver" as p4
+p0 -> p1 : publish(BookingEvent)
+p1 -> p2 : onBookingChanged(event)
+p2 -> p3 : save(Notification)
+p3 -> p2 : saved
+p1 -> p4 : onBookingChanged(event)
+p4 -> p4 : log.info(...)
+p1 -> p0 : complete
+@enduml

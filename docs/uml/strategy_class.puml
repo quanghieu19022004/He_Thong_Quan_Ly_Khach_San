@@ -1,0 +1,29 @@
+@startuml
+left to right direction
+skinparam classAttributeIconSize 0
+class "BookingService" as c0 {
+  + reserve(...)
+}
+class "PricingService" as c1 {
+  - strategies: Map
+  + quote(plan,room,dates): BigDecimal
+}
+interface "PricingStrategy «interface»" as c2 {
+  + supports(): PricingPlan
+  + calculate(room,dates): BigDecimal
+}
+class "StandardPricingStrategy" as c3 {
+  + calculate(...): BigDecimal
+}
+class "WeekendPricingStrategy" as c4 {
+  + calculate(...): BigDecimal
+}
+class "Room «entity»" as c5 {
+  - nightlyRate
+}
+c0 --> c1 : quotes
+c1 --> c2 : chooses
+c3 ..|> c2 : implements
+c4 ..|> c2 : implements
+c2 --> c5 : reads rate
+@enduml

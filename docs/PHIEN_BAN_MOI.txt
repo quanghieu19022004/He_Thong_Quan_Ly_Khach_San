@@ -1,0 +1,7 @@
+PHIÊN BẢN KHÁCH HỦY ĐẶT PHÒNG
+1. Khách có nút Hủy đặt phòng tại /bookings và trang xác nhận/chi tiết đơn trước ngày nhận phòng.
+2. Đơn PENDING và CONFIRMED đều hủy được, bao gồm các đơn đã trả tiền DEMO.
+3. Thanh toán demo được đổi thành SIMULATED_REFUNDED, không hoàn tiền thật.
+4. Có bộ kiểm thử CustomerBookingCancellationTests.java (cần chạy mvn clean test).
+5. Tài liệu Word đi kèm: Huong_dan_cai_dat_va_huy_dat_phong.docx.
+Không chỉnh quyền admin phê duyệt.

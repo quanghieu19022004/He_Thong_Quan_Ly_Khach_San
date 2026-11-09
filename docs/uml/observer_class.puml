@@ -1,0 +1,33 @@
+@startuml
+left to right direction
+skinparam classAttributeIconSize 0
+class "BookingService" as c0 {
+  + reserve()
+  + cancel()
+}
+class "BookingEventPublisher" as c1 {
+  - listeners: List
+  + publish(event)
+}
+interface "BookingEventListener «interface»" as c2 {
+  + onBookingChanged(event)
+}
+class "DatabaseNotificationObserver" as c3 {
+  + onBookingChanged(event)
+}
+class "LogBookingObserver" as c4 {
+  + onBookingChanged(event)
+}
+class "NotificationRepository" as c5 {
+  + save(notification)
+}
+class "BookingEvent «record»" as c6 {
+  + booking, action
+}
+c0 --> c1 : publishes
+c1 --> c2 : notifies
+c3 ..|> c2 : implements
+c4 ..|> c2 : implements
+c3 --> c5 : persists
+c1 --> c6 : carries
+@enduml

@@ -1,0 +1,10 @@
+<!doctype html><html lang="vi" xmlns:th="http://www.thymeleaf.org"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#123455">
+<title>Đăng nhập | Lumi Stay</title>
+<link rel="stylesheet" th:href="@{/css/style.css}"></head><body>
+<div th:replace="~{fragments/layout :: header}"></div>
+<main class="container page-content">
+<div th:if="${notice}" class="alert ok" role="status" th:text="${notice}"></div>
+<div th:if="${error}" class="alert bad" role="alert" th:text="${error}"></div>
+<section class="auth-shell"><div class="auth-info"><span class="eyebrow light">CHÀO MỪNG TRỞ LẠI</span><h1>Chuyến đi vẫn đang chờ bạn.</h1><p>Đăng nhập để xem những phòng đã chọn, lịch nghỉ sắp tới và thông tin lưu trú của bạn.</p><div class="auth-mark">✦</div></div><div class="auth-form"><div class="eyebrow">TÀI KHOẢN</div><h2>Đăng nhập</h2><p th:if="${param.registered}" class="alert ok">Đăng ký thành công. Hãy đăng nhập!</p><p th:if="${param.error}" class="alert bad">Tên đăng nhập hoặc mật khẩu không đúng.</p><p th:if="${param.logout}" class="alert ok">Bạn đã đăng xuất.</p><form th:action="@{/login}" method="post" class="stack"><label>Tên đăng nhập<input type="text" name="username" required autocomplete="username" placeholder="Nhập tên đăng nhập"></label><label>Mật khẩu<input type="password" name="password" required autocomplete="current-password" placeholder="Nhập mật khẩu"></label><button class="btn full btn-lg" type="submit">Đăng nhập →</button></form><p>Chưa có tài khoản? <a th:href="@{/register}"><strong>Đăng ký ngay</strong></a></p><div class="demo-credentials"><strong>Tài khoản thử nghiệm</strong><p>Khách: <code>demo / Demo@12345</code><br>Quản trị: <code>admin / Admin@12345</code></p></div></div></section></main><div th:replace="~{fragments/layout :: footer}"></div></body></html>

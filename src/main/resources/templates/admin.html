@@ -1,0 +1,41 @@
+<!doctype html><html lang="vi" xmlns:th="http://www.thymeleaf.org"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#123455">
+<title>Quản trị | Lumi Stay</title>
+<link rel="stylesheet" th:href="@{/css/style.css}"></head><body>
+<div th:replace="~{fragments/layout :: header}"></div>
+<main class="container page-content">
+<div th:if="${notice}" class="alert ok" role="status" th:text="${notice}"></div>
+<div th:if="${error}" class="alert bad" role="alert" th:text="${error}"></div>
+
+<div class="section-head"><div><p class="eyebrow">ADMIN</p><h1>Quản trị khách sạn</h1></div><span class="tag">Dành riêng cho ADMIN</span></div><div class="panel"><h2>Thêm phòng mới (Factory Method)</h2><form th:action="@{/admin/rooms}" method="post" class="admin-form"><label>Mã phòng<input type="text" name="number" minlength="2" maxlength="12" required placeholder="D401"/></label><label>Loại phòng<select name="type"><option value="STANDARD">Standard</option><option value="DELUXE">Deluxe</option><option value="SUITE">Suite</option></select></label><label>Giá cơ bản (VND)<input type="number" name="baseRate" min="1000" required/></label><label>Sức chứa<input type="number" name="capacity" min="1" max="20" value="2" required/></label><button class="btn" type="submit">Thêm phòng</button></form></div>
+<h2>Danh sách phòng</h2><div class="table-scroll"><table><thead><tr><th>Mã phòng</th><th>Loại</th><th>Giá/đêm</th><th>Sức chứa</th><th>Trạng thái</th><th>Thao tác</th></tr></thead><tbody><tr th:each="r:${rooms}"><td th:text="${r.number}"></td><td th:text="${r.type}"></td><td th:text="${#numbers.formatDecimal(r.nightlyRate,1,'POINT',0,'COMMA')}+' ₫'"></td><td th:text="${r.capacity}"></td><td th:text="${r.active} ? 'Đang mở' : 'Ngừng khai thác'"></td>
+ <td><form th:action="@{/admin/rooms/{id}/toggle(id=${r.id})}" method="post"><input type="hidden" name="active" th:value="${!r.active}"/><button class="btn outline smallbtn" type="submit" th:text="${r.active} ? 'Khóa phòng' : 'Mở phòng'"></button></form></td></tr></tbody></table></div>
+<section class="admin-booking-section" id="quan-ly-don">
+ <div class="section-head"><div><p class="eyebrow">XỬ LÝ ĐƠN ĐẶT PHÒNG</p><h2>Quản lý đơn đặt phòng</h2>
+ <p class="muted">Đơn khách vừa đặt luôn ở trạng thái Chờ xác nhận. Chỉ Admin mới có thể chuyển đơn sang Đã xác nhận.</p></div>
+ <span class="status-pill pending" th:text="${pendingCount} + ' đơn chờ xác nhận'">0 đơn chờ xác nhận</span></div>
+ <div class="table-scroll"><table class="admin-bookings-table"><thead><tr>
+ <th>Mã đơn</th><th>Khách hàng</th><th>Phòng</th><th>Thời gian lưu trú</th><th>Thanh toán</th><th>Trạng thái đặt phòng</th><th>Thao tác</th>
+ </tr></thead><tbody>
+ <tr th:each="b : ${bookings}">
+  <td><strong th:text="'#'+${b.id}">#1</strong></td>
+  <td th:text="${b.customer.username}">demo</td>
+  <td th:text="${b.room.number}">A101</td>
+  <td><span th:text="${#temporals.format(b.checkIn,'dd/MM/yyyy')}">01/01/2027</span> – <span th:text="${#temporals.format(b.checkOut,'dd/MM/yyyy')}">03/01/2027</span></td>
+  <td th:switch="${paymentByBooking[b.id]}"><span th:case="'DUE_AT_PROPERTY'">Trả tại khách sạn</span><span th:case="'SIMULATED_PAID'">Đã trả (demo)</span><span th:case="'SIMULATED_REFUNDED'">Đã hoàn tiền demo</span><span th:case="'CANCELLED'">Đã hủy thanh toán</span><span th:case="*">Chưa chọn</span></td>
+  <td><span class="status-pill" th:classappend="${b.status.name() == 'PENDING'} ? ' pending' : (${b.status.name() == 'CONFIRMED'} ? ' confirmed' : ' cancelled')" th:text="${b.status.name() == 'PENDING'} ? 'Chờ xác nhận' : (${b.status.name() == 'CONFIRMED'} ? 'Đã xác nhận' : 'Đã hủy')">Chờ xác nhận</span></td>
+  <td><div class="admin-booking-actions">
+   <form th:if="${b.status.name() == 'PENDING'}" th:action="@{/admin/bookings/{id}/confirm(id=${b.id})}" method="post">
+    <button class="btn smallbtn" type="submit" th:attr="aria-label=|Xác nhận đơn ${b.id}|" onclick="return confirm('Xác nhận đơn đặt phòng này?')">✓ Xác nhận</button>
+   </form>
+   <form th:if="${b.cancellable}" th:action="@{/admin/bookings/{id}/cancel(id=${b.id})}" method="post">
+    <button class="btn outline smallbtn" type="submit" onclick="return confirm('Hủy đơn đặt phòng này?')">Hủy đơn</button>
+   </form>
+   <span th:if="${!b.cancellable}" class="muted small">—</span>
+  </div></td>
+ </tr>
+ <tr th:if="${#lists.isEmpty(bookings)}"><td colspan="7" class="muted">Chưa có đơn đặt phòng nào.</td></tr>
+ </tbody></table></div>
+ </section>
+</main><div th:replace="~{fragments/layout :: footer}"></div></body></html>

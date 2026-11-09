@@ -1,0 +1,10 @@
+<!doctype html><html lang="vi" xmlns:th="http://www.thymeleaf.org"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#123455">
+<title>Tài khoản | Lumi Stay</title>
+<link rel="stylesheet" th:href="@{/css/style.css}"></head><body>
+<div th:replace="~{fragments/layout :: header}"></div>
+<main class="container page-content">
+<div th:if="${notice}" class="alert ok" role="status" th:text="${notice}"></div>
+<div th:if="${error}" class="alert bad" role="alert" th:text="${error}"></div>
+<div class="section-heading"><div><span class="eyebrow">TRUNG TÂM TÀI KHOẢN</span><h1>Hồ sơ cá nhân</h1><p class="muted">Thông tin tài khoản sử dụng trong hệ thống đặt phòng.</p></div></div><section class="panel profile-panel"><div class="profile-avatar" th:text="${currentInitial}">D</div><div><h2 th:text="${account.username}">demo</h2><p class="muted">Tài khoản thành viên Lumi Stay</p></div><div class="profile-facts"><div><span>Địa chỉ email</span><strong th:text="${account.email}">example@mail.com</strong></div><div><span>Vai trò</span><strong th:text="${account.role.name() == 'ADMIN'} ? 'Quản trị viên' : 'Khách hàng'">Khách</strong></div></div><a th:href="@{/bookings}" class="btn">Xem đơn đặt phòng →</a></section></main><div th:replace="~{fragments/layout :: footer}"></div></body></html>

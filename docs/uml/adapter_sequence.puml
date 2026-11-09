@@ -1,0 +1,18 @@
+@startuml
+autonumber
+skinparam responseMessageBelowArrow true
+participant "BookingController" as p0
+participant "BookingFacade" as p1
+participant "PaymentService" as p2
+participant "GatewayRouter" as p3
+participant "WalletAdapter" as p4
+participant "LegacyWalletClient" as p5
+p0 -> p1 : pay(id, MOCK_WALLET)
+p1 -> p2 : pay(...)
+p2 -> p3 : get(MOCK_WALLET)
+p3 -> p2 : PaymentGateway
+p2 -> p4 : pay(booking)
+p4 -> p5 : chargeInMinorUnits(...)
+p5 -> p4 : DEMO reference
+p4 -> p2 : reference
+@enduml

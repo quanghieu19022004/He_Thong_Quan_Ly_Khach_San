@@ -1,0 +1,8 @@
+target/
+.classpath
+.project
+.settings/
+.idea/
+*.log
+.env
+.vscode/settings.json

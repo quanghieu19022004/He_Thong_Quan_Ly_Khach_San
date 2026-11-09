@@ -1,0 +1,35 @@
+@startuml
+left to right direction
+skinparam classAttributeIconSize 0
+class "AdminController" as c0 {
+  + createRoom(...)
+}
+class "RoomService" as c1 {
+  + add(number,type,rate,capacity): Room
+}
+class "RoomFactoryRegistry" as c2 {
+  + get(type): RoomFactory
+}
+interface "RoomFactory «interface»" as c3 {
+  + create(number,rate,capacity): Room
+}
+class "StandardRoomFactory" as c4 {
+  + create(...): Room
+}
+class "DeluxeRoomFactory" as c5 {
+  + create(...): Room
+}
+class "SuiteRoomFactory" as c6 {
+  + create(...): Room
+}
+class "Room «entity»" as c7 {
+  - number, type, nightlyRate, capacity
+}
+c0 --> c1 : uses
+c1 --> c2 : calls
+c2 --> c3 : returns
+c4 ..|> c3 : implements
+c5 ..|> c3 : implements
+c6 ..|> c3 : implements
+c3 --> c7 : creates
+@enduml

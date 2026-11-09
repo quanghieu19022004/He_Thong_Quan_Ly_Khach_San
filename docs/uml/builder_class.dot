@@ -1,0 +1,16 @@
+digraph G {
+graph [rankdir=TB, bgcolor="white", pad="0.27", nodesep="0.44", ranksep="1.0", splines=polyline, fontname="DejaVu Sans"];
+node [shape=record, style="rounded,filled", fillcolor="#ecf4fc", color="#295b83", penwidth=1.25, fontname="DejaVu Sans", fontsize=11, margin="0.12,0.1"];
+edge [color="#526b88", arrowsize=0.7, penwidth=1.15, fontname="DejaVu Sans",fontsize=9];
+c0 [label="{BookingController|+ reserve(...)\l}"];
+c1 [label="{BookingService|+ reserve(...): Booking\l}"];
+c2 [label="{Booking.Builder|+ customer()\l+ room()\l+ dates()\l+ guests()\l+ total()\l+ build(): Booking\l}"];
+c3 [label="{Booking\n«entity»|- room, customer, checkIn, checkOut\l- guests, pricingPlan, total\l}"];
+c4 [label="{Room\n«entity»|- number, rate\l}"];
+c5 [label="{AppUser\n«entity»|- username\l}"];
+c0 -> c1 [label="uses", style=solid, arrowhead=vee];
+c1 -> c2 [label="builds", style=solid, arrowhead=vee];
+c2 -> c3 [label="creates", style=solid, arrowhead=vee];
+c3 -> c4 [label="has", style=solid, arrowhead=vee];
+c3 -> c5 [label="belongs to", style=solid, arrowhead=vee];
+}

@@ -1,0 +1,10 @@
+<!doctype html><html lang="vi" xmlns:th="http://www.thymeleaf.org"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#123455">
+<title>Thông báo | Lumi Stay</title>
+<link rel="stylesheet" th:href="@{/css/style.css}"></head><body>
+<div th:replace="~{fragments/layout :: header}"></div>
+<main class="container page-content">
+<div th:if="${notice}" class="alert ok" role="status" th:text="${notice}"></div>
+<div th:if="${error}" class="alert bad" role="alert" th:text="${error}"></div>
+<div class="section-heading"><div><div class="eyebrow">CẬP NHẬT LƯU TRÚ</div><h1>Thông báo của bạn</h1><p class="muted">Những thay đổi về trạng thái đặt phòng sẽ hiển thị tại đây.</p></div></div><div class="notification-list"><div th:each="n : ${notifications}" class="notice"><div class="notice-icon">🔔</div><div><p th:text="${n.message}"></p><small class="muted" th:text="${#temporals.format(n.createdAt, 'dd/MM/yyyy HH:mm')}"></small></div></div></div><div class="empty" th:if="${#lists.isEmpty(notifications)}"><div class="empty-icon">🔔</div><h3>Chưa có thông báo</h3><p>Những thay đổi về đơn đặt phòng sẽ hiển thị ở đây.</p></div></main><div th:replace="~{fragments/layout :: footer}"></div></body></html>

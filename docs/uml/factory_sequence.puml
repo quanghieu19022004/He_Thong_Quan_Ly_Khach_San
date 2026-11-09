@@ -1,0 +1,16 @@
+@startuml
+autonumber
+skinparam responseMessageBelowArrow true
+participant "AdminController" as p0
+participant "RoomService" as p1
+participant "RoomFactoryRegistry" as p2
+participant "DeluxeRoomFactory" as p3
+participant "RoomRepository" as p4
+p0 -> p1 : add(B201, DELUXE, …)
+p1 -> p2 : get(DELUXE)
+p2 -> p1 : DeluxeRoomFactory
+p1 -> p3 : create(B201, rate, 3)
+p3 -> p1 : Room(DELUXE)
+p1 -> p4 : save(room)
+p4 -> p1 : Room persisted
+@enduml
